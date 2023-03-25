@@ -7,17 +7,6 @@ class NetworkHelper:
     """
     A helper class for network utility.
     """
-
-    BINARY_ZEROING = {
-        "1": "0",
-        "2": "00",
-        "3": "000",
-        "4": "0000",
-        "5": "00000",
-        "6": "000000",
-        "7": "0000000",
-    }
-
     def __init__(self):
         pass
 
@@ -56,8 +45,8 @@ class NetworkHelper:
             if len(binary_num.__getitem__(i)) == 8:
                 fixed_binary_nums += f"{binary_num.__getitem__(i)}."
             if len(binary_num.__getitem__(i)) < 8:
-                autofill_empty_zero = str(8 - len(binary_num.__getitem__(i)))
-                fixed_binary_nums += f"{cls.BINARY_ZEROING.get(autofill_empty_zero)}{binary_num.__getitem__(i)}."
+                autofill_empty_zero = '{:08b}'.format(int(binary_num.__getitem__(i)))
+                fixed_binary_nums += f"{autofill_empty_zero}."
         return fixed_binary_nums[:-1]
 
     @classmethod
