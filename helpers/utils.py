@@ -60,3 +60,17 @@ class Utils:
                 int: A int representing the decimal value of the binary number after conversion.
             """
         return [bin(int(i))[2:] for i in doted_string_number.split('.')]
+
+    @classmethod
+    def decimal_2_binary(cls, decimal_num):
+
+        if decimal_num > 1:
+            print(decimal_num // 2)
+            cls.decimal_2_binary(decimal_num // 2)
+
+        print(decimal_num % 2, end='')
+
+
+if __name__ == '__main__':
+    Utils.decimal_2_binary(255)
+    print(f"\n{Utils.binary_2_decimal('11111111')}")
