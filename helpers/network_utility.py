@@ -2,6 +2,8 @@ import socket
 
 from typing import Optional
 
+from helpers.utils import Utils
+
 
 class NetworkHelper:
     """
@@ -28,28 +30,6 @@ class NetworkHelper:
             print(f"Connection Error: {exp}")
 
     @classmethod
-    def binary_zero_fill_empty(cls, binary_num: list) -> str:
-        """
-           Adds zero to autofill binary numbers less than 8 bit.
-
-           Args:
-               binary_num (list): list of the ip binary numbers.
-
-           Returns:
-               str: A string representing the binary representation of the IP address After applying zero padding.
-           """
-        fixed_binary_nums = ""
-        for i in range(len(binary_num)):
-            if len(binary_num.__getitem__(i)) > 8:
-                return "The Number You Just Entered is above 8 bit"
-            if len(binary_num.__getitem__(i)) == 8:
-                fixed_binary_nums += f"{binary_num.__getitem__(i)}."
-            if len(binary_num.__getitem__(i)) < 8:
-                autofill_empty_zero = '{:08b}'.format(int(binary_num.__getitem__(i)))
-                fixed_binary_nums += f"{autofill_empty_zero}."
-        return fixed_binary_nums[:-1]
-
-    @classmethod
     def ip_to_binary(cls, ip_address: str) -> Optional[str]:
         """
         Converts an IPv4 address in dotted decimal notation to its 8bit binary representation.
@@ -62,8 +42,8 @@ class NetworkHelper:
         """
 
         try:
-            binary_num = [bin(int(i))[2:] for i in ip_address.split('.')]
-            return cls.binary_zero_fill_empty(binary_num)
+            binary_num = Utils.doted_str_2_list(ip_address)
+            return Utils.binary_zero_fill_empty(binary_num)
         except Exception as exp:
             print(exp)
 
