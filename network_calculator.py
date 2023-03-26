@@ -5,12 +5,12 @@ from typing import Optional
 from helpers.utils import Utils
 
 
-class NetworkHelper:
+class NetworkCalculator:
     """
     A helper class for network utility.
     """
     def __init__(self):
-        pass
+        self.utils = Utils()
 
     @staticmethod
     def get_ip_address() -> Optional[str]:
@@ -29,8 +29,7 @@ class NetworkHelper:
         except Exception as exp:
             print(f"Connection Error: {exp}")
 
-    @classmethod
-    def ip_to_binary(cls, ip_address: str) -> Optional[str]:
+    def ip_to_binary(self, ip_address: str) -> Optional[str]:
         """
         Converts an IPv4 address in dotted decimal notation to its 8bit binary representation.
 
@@ -42,16 +41,18 @@ class NetworkHelper:
         """
 
         try:
-            binary_num = Utils.doted_str_2_list(ip_address)
-            return Utils.binary_zero_fill_empty(binary_num)
+            binary_numbers_list = self.utils.doted_str_2_list(doted_string_number=ip_address)
+            return self.utils.binary_zero_fill_empty(binary_num_list=binary_numbers_list)
         except Exception as exp:
             print(exp)
 
 
 if __name__ == '__main__':
-    network = NetworkHelper()
+    network = NetworkCalculator()
     # ipv4 = network.get_ip_address()
     # print(f"{ipv4 = }")
-    binary_ip = network.ip_to_binary("0.255.255.255")
+    binary_subnet_mask = network.ip_to_binary("0.255.255.255")
+    binary_ip = network.ip_to_binary("192.168.68.100")
     # print(f"{len(binary_ip) = }")
+    print(f"binary_subnet_mask==============={binary_subnet_mask}")
     print(f"binary_ip==============={binary_ip}")
